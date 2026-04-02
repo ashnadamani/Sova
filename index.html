@@ -4,6 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SOVA — Reclaimed Cotton. Reimagined by Hand.</title>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-N9YBTV2RTG"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-N9YBTV2RTG');
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
@@ -1018,10 +1026,25 @@
     // Waitlist
     document.getElementById('waitlistForm').addEventListener('submit', function(e) {
       e.preventDefault();
-      console.log('Waitlist signup:', this.querySelector('input').value);
-      this.style.display = 'none';
-      document.getElementById('waitlistFine').style.display = 'none';
-      document.getElementById('waitlistSuccess').style.display = 'block';
+      var email = this.querySelector('input').value;
+      var form = this;
+      var btn = form.querySelector('button');
+      btn.textContent = '...';
+      btn.disabled = true;
+
+      fetch('https://script.google.com/macros/s/AKfycbw1_PK10upadCqzVUuhcze8_Ever9sFtd210x2sKUQtOgJoBqUHfGtmge5Uby8xmmQ/exec', {
+        method: 'POST',
+        body: JSON.stringify({ email: email }),
+        mode: 'no-cors'
+      }).then(function() {
+        form.style.display = 'none';
+        document.getElementById('waitlistFine').style.display = 'none';
+        document.getElementById('waitlistSuccess').style.display = 'block';
+      }).catch(function() {
+        btn.textContent = 'Join';
+        btn.disabled = false;
+        alert('Something went wrong. Please try again.');
+      });
     });
 
     // Scroll reveal
