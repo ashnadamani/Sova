@@ -1032,10 +1032,11 @@
       btn.textContent = '...';
       btn.disabled = true;
 
-      fetch('https://script.google.com/macros/s/AKfycbw1_PK10upadCqzVUuhcze8_Ever9sFtd210x2sKUQtOgJoBqUHfGtmge5Uby8xmmQ/exec', {
+      fetch('https://script.google.com/macros/s/AKfycbyFJHaMKsx1FEdyBWVUFT193j3S91tbKgvBuGHJyFlV7pya72QTpSZyZLLja9vw0sXz/exec', {
         method: 'POST',
         body: JSON.stringify({ email: email }),
-        mode: 'no-cors'
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain' }
       }).then(function() {
         form.style.display = 'none';
         document.getElementById('waitlistFine').style.display = 'none';
